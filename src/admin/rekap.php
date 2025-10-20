@@ -111,7 +111,7 @@ $stmt_rekap->close();
         <form method="GET" class="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-end gap-4">
             <div>
                 <label for="bulan" class="block text-sm font-medium text-gray-700">Bulan</label>
-                <select name="bulan" id="bulan" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                <select name="bulan" id="bulan" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md select-field">
                     <?php for ($i = 1; $i <= 12; $i++): ?>
                         <option value="<?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?>" <?php if ($i == $bulan) echo 'selected'; ?>>
                             <?php echo DateTime::createFromFormat('!m', $i)->format('F'); ?>
@@ -121,11 +121,11 @@ $stmt_rekap->close();
             </div>
             <div>
                 <label for="tahun" class="block text-sm font-medium text-gray-700">Tahun</label>
-                <input type="number" name="tahun" id="tahun" value="<?php echo $tahun; ?>" class="mt-1 block w-full border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                <input type="number" name="tahun" id="tahun" value="<?php echo $tahun; ?>" class="mt-1 block w-full border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md input-field">
             </div>
             <div>
                 <label for="nama_karyawan" class="block text-sm font-medium text-gray-700">Nama Karyawan</label>
-                <input type="text" name="nama_karyawan" id="nama_karyawan" value="<?php echo htmlspecialchars($nama_karyawan_filter); ?>" placeholder="Cari nama..." class="mt-1 block w-full border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                <input type="text" name="nama_karyawan" id="nama_karyawan" value="<?php echo htmlspecialchars($nama_karyawan_filter); ?>" placeholder="Cari nama..." class="mt-1 block w-full border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md input-field">
             </div>
             <button type="submit" class="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm">Tampilkan</button>
         </form>

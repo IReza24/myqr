@@ -34,9 +34,9 @@ $result = $stmt->get_result();
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
             <h1 class="text-2xl font-bold text-slate-800 mb-4 sm:mb-0">Rekapitulasi Absensi</h1>
             <form method="GET" action="rekap_absensi.php" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                <input type="date" name="start_date" value="<?php echo htmlspecialchars($start_date); ?>" class="form-input rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full sm:w-auto">
+                <input type="date" name="start_date" value="<?php echo htmlspecialchars($start_date); ?>" class="form-input rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full sm:w-auto input-field">
                 <span class="text-center sm:py-2">to</span>
-                <input type="date" name="end_date" value="<?php echo htmlspecialchars($end_date); ?>" class="form-input rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full sm:w-auto">
+                <input type="date" name="end_date" value="<?php echo htmlspecialchars($end_date); ?>" class="form-input rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full sm:w-auto input-field">
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
                     Filter
                 </button>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Waktu pembuatan: 06 Okt 2025 pada 05.41
--- Versi server: 11.8.3-MariaDB-log
--- Versi PHP: 7.2.34
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 20 Okt 2025 pada 04.58
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `u822465743_absen`
+-- Database: `myqr`
 --
 
 -- --------------------------------------------------------
@@ -33,8 +33,8 @@ CREATE TABLE `absensi` (
   `tanggal_absensi` date NOT NULL,
   `waktu_masuk` time DEFAULT NULL,
   `waktu_keluar` time DEFAULT NULL,
-  `status_masuk` enum('Tepat Waktu','Terlambat') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `status_keluar` enum('Selesai','Pulang Cepat','Lembur') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `status_masuk` enum('Tepat Waktu','Terlambat') DEFAULT NULL,
+  `status_keluar` enum('Selesai','Pulang Cepat','Lembur') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -44,8 +44,58 @@ CREATE TABLE `absensi` (
 INSERT INTO `absensi` (`id`, `user_id`, `tanggal_absensi`, `waktu_masuk`, `waktu_keluar`, `status_masuk`, `status_keluar`) VALUES
 (8, 5, '2025-10-05', '19:13:23', '19:14:39', 'Tepat Waktu', 'Pulang Cepat'),
 (9, 6, '2025-10-05', '22:49:33', '22:50:08', 'Terlambat', 'Selesai'),
-(10, 8, '2025-10-06', '08:36:21', NULL, 'Terlambat', NULL),
-(11, 7, '2025-10-06', '11:12:23', NULL, 'Tepat Waktu', NULL);
+(10, 8, '2025-10-06', '08:36:21', '09:02:14', 'Terlambat', 'Pulang Cepat'),
+(11, 7, '2025-10-06', '11:12:23', '18:05:08', 'Tepat Waktu', 'Lembur');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `pesan` text NOT NULL,
+  `status` enum('unread','read') NOT NULL DEFAULT 'unread',
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
+  `link` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`id`, `user_id`, `pesan`, `status`, `tanggal`, `link`) VALUES
+(1, 8, 'Pengajuan ganti shift Anda telah di-setujui.', 'read', '2025-10-15 04:30:34', 'src/user/jadwal.php');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengajuan_ganti_shift`
+--
+
+CREATE TABLE `pengajuan_ganti_shift` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tanggal_mulai` date NOT NULL,
+  `tanggal_selesai` date NOT NULL,
+  `shift_id_lama` int(11) NOT NULL,
+  `shift_id_baru` int(11) NOT NULL,
+  `alasan` text NOT NULL,
+  `status` enum('pending','disetujui','ditolak') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pengajuan_ganti_shift`
+--
+
+INSERT INTO `pengajuan_ganti_shift` (`id`, `user_id`, `tanggal_mulai`, `tanggal_selesai`, `shift_id_lama`, `shift_id_baru`, `alasan`, `status`, `created_at`) VALUES
+(1, 8, '2025-02-01', '2025-10-15', 1, 1, 'testing', 'disetujui', '2025-10-15 06:13:02'),
+(2, 8, '2025-12-10', '2025-12-10', 1, 3, 'testing', 'disetujui', '2025-10-15 06:13:55'),
+(3, 8, '2025-10-12', '2025-10-13', 1, 2, 'fas', 'disetujui', '2025-10-15 06:19:54'),
+(4, 8, '2025-10-16', '2025-10-17', 2, 3, 'testing bro', 'disetujui', '2025-10-15 06:26:01');
 
 -- --------------------------------------------------------
 
@@ -64,7 +114,7 @@ CREATE TABLE `qr_tokens` (
 --
 
 INSERT INTO `qr_tokens` (`id`, `token`, `berlaku_sampai`) VALUES
-(310, '919654', '2025-10-06 11:24:44');
+(329, '778391', '2025-10-20 09:41:53');
 
 -- --------------------------------------------------------
 
@@ -128,13 +178,13 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `nama_lengkap`, `role`, `shift_id`) VALUES
 (1, 'admin', '$2y$10$Y7G/0LaP3yq2C8rAbAnY5.Q.dI9dIuU2TbClHjV2A/JvI.38JkI.K', 'Admin Utama', 'admin', NULL),
-(2, 'user1', '$2y$10$Y7G/0LaP3yq2C8rAbAnY5.Q.dI9dIuU2TbClHjV2A/JvI.38JkI.K', 'Budi Sanjaya', 'user', NULL),
+(2, 'user1', '$2y$10$Y7G/0LaP3yq2C8rAbAnY5.Q.dI9dIuU2TbClHjV2A/JvI.38JkI.K', 'Budi Sanjaya', 'user', 2),
 (3, 'admin1', '$2y$10$p0KebKEOrux./Bgvftbjv.mbjSJ.fz5/WRY8h2SN.RrOvbKcqzxUS', 'brokdi', 'admin', NULL),
 (4, 'brokda', '$2y$10$/WrocmaPJPttSK3p.8hyRevWINFITDX0nQH7mlLm6blQ.H/kt2yEu', 'brokda', 'user', 2),
 (5, 'alex', '$2y$10$gzwadAoy9YzPQ7SRtPwOQ.63Dzg7urOTqj3OtMtVGEd5XnpKy9ebC', 'JOKO ALEX', 'user', 2),
 (6, 'memei', '$2y$10$p..XSpzjt9oBRHasRt85QOL0SjU7AltDnvAxknSXfNKcxWuZpdAbC', 'abang memei', 'user', 3),
 (7, 'Ijat', '$2y$10$0PRgIdF2kP.BYz9tOhBlpe1CfRsa5Pcf0S4pEdKg0iR.DEtwkQkfe', 'ijat', 'user', 3),
-(8, 'Reza', '$2y$10$uveQgwGRM1bS.PC34Eg/iuik1pwpXaPEBMwfKowqnJFBPUG/osqvi', 'Reza Pratama', 'user', 1);
+(8, 'Reza', '$2y$10$uveQgwGRM1bS.PC34Eg/iuik1pwpXaPEBMwfKowqnJFBPUG/osqvi', 'Reza Pratama', 'user', 2);
 
 --
 -- Indexes for dumped tables
@@ -146,6 +196,22 @@ INSERT INTO `users` (`id`, `username`, `password`, `nama_lengkap`, `role`, `shif
 ALTER TABLE `absensi`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeks untuk tabel `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeks untuk tabel `pengajuan_ganti_shift`
+--
+ALTER TABLE `pengajuan_ganti_shift`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `shift_id_lama` (`shift_id_lama`),
+  ADD KEY `shift_id_baru` (`shift_id_baru`);
 
 --
 -- Indeks untuk tabel `qr_tokens`
@@ -184,10 +250,22 @@ ALTER TABLE `absensi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT untuk tabel `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengajuan_ganti_shift`
+--
+ALTER TABLE `pengajuan_ganti_shift`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT untuk tabel `qr_tokens`
 --
 ALTER TABLE `qr_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=311;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=330;
 
 --
 -- AUTO_INCREMENT untuk tabel `shifts`
@@ -210,6 +288,20 @@ ALTER TABLE `users`
 --
 ALTER TABLE `absensi`
   ADD CONSTRAINT `absensi_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD CONSTRAINT `notifikasi_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `pengajuan_ganti_shift`
+--
+ALTER TABLE `pengajuan_ganti_shift`
+  ADD CONSTRAINT `pengajuan_ganti_shift_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pengajuan_ganti_shift_ibfk_2` FOREIGN KEY (`shift_id_lama`) REFERENCES `shifts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pengajuan_ganti_shift_ibfk_3` FOREIGN KEY (`shift_id_baru`) REFERENCES `shifts` (`id`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `users`

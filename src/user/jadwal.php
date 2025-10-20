@@ -132,9 +132,10 @@ if ($next_month == 13) {
                             $today_str = date('Y-m-d');
                             $is_today = ($current_date_str == $today_str);
                             $is_past = ($current_date_str < $today_str);
+                            $is_weekend = ($day_of_week == 0 || $day_of_week == 6); // 0 = Minggu, 6 = Sabtu
 
                             $cell_class = 'h-28 border border-gray-200 p-2 align-top relative';
-                            if ($is_past) {
+                            if ($is_past || $is_weekend) {
                                 $cell_class .= ' bg-gray-50 cursor-not-allowed';
                             } else {
                                 $cell_class .= ' hover:bg-blue-50 cursor-pointer transition-colors';
@@ -142,12 +143,13 @@ if ($next_month == 13) {
 
                             $day_number_class = $is_today ? 'bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold' : 'font-medium text-slate-600';
 
-                            // --- PERUBAHAN UTAMA: Membuat sel bisa diklik ---
-                            if (!$is_past) {
+                            // --- PERUBAHAN UTAMA: Membuat sel bisa diklik hanya jika bukan hari libur ---
+                            if (!$is_past && !$is_weekend) {
                                 $link_url = "ajukan_ganti_shift.php?tanggal=" . $current_date_str;
                                 echo "<td class='$cell_class' onclick=\"window.location.href='$link_url'\" title='Ajukan ganti shift untuk tanggal ini'>";
                             } else {
-                                echo "<td class='$cell_class'>";
+                                $title = $is_weekend ? 'Hari libur, tidak bisa mengajukan ganti shift' : 'Tanggal sudah lewat';
+                                echo "<td class='$cell_class' title='$title'>";
                             }
                             echo "<div class='$day_number_class'>$current_day</div>";
                             

@@ -82,6 +82,50 @@ document.addEventListener('DOMContentLoaded', () => {
         const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
         setSidebarState(isCollapsed);
     }
+    
+    // === MODE GELAP/TERANG ===
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIconLight = document.getElementById('theme-icon-light');
+    const themeIconDark = document.getElementById('theme-icon-dark');
+    const themeText = themeToggle.querySelector('[data-sidebar-state="expanded"]');
+    
+    // Cek preferensi mode yang tersimpan
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    // Terapkan mode yang tersimpan
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark');
+        themeIconLight.classList.remove('hidden');
+        themeIconDark.classList.add('hidden');
+        themeText.textContent = 'Mode Terang';
+    } else {
+        document.body.classList.remove('dark');
+        themeIconLight.classList.add('hidden');
+        themeIconDark.classList.remove('hidden');
+        themeText.textContent = 'Mode Gelap';
+    }
+    
+    // Event listener untuk toggle tema
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark');
+            
+            // Simpan preferensi ke localStorage
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Update ikon dan teks
+            if (isDark) {
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+                themeText.textContent = 'Mode Terang';
+            } else {
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+                themeText.textContent = 'Mode Gelap';
+            }
+        });
+    }
+    // ==========================
 });
 </script>
 </body>

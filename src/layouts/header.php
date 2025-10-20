@@ -59,12 +59,589 @@ function is_active($page_name) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <style> 
-      body { font-family: 'Inter', sans-serif; } 
+    <style>
+      body { font-family: 'Inter', sans-serif; }
       .toastify.on { opacity: 1 !important; }
       
       #sidebar { transition: width 0.3s ease-in-out, transform 0.3s ease-in-out; }
       .content-wrapper { transition: margin-left 0.3s ease-in-out; }
+
+      /* === MODE GELAP === */
+      body.dark {
+        background-color: #0f172a;
+        color: #f1f5f9;
+      }
+      
+      body.dark .bg-white {
+        background-color: #1e293b !important;
+      }
+      
+      body.dark .bg-gray-50 {
+        background-color: #334155 !important;
+      }
+      
+      body.dark .bg-gray-100 {
+        background-color: #0f172a !important;
+      }
+      
+      body.dark .text-slate-800 {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .text-slate-600 {
+        color: #cbd5e1 !important;
+      }
+      
+      body.dark .text-slate-500 {
+        color: #94a3b8 !important;
+      }
+      
+      body.dark .border-gray-200 {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .border-gray-300 {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .hover\:bg-gray-200:hover {
+        background-color: #334155 !important;
+      }
+      
+      body.dark .hover\:bg-blue-50:hover {
+        background-color: #1e3a5f !important;
+      }
+      
+      body.dark .bg-blue-100 {
+        background-color: #1e3a5f !important;
+        color: #93c5fd !important;
+      }
+      
+      body.dark .text-blue-800 {
+        color: #93c5fd !important;
+      }
+      
+      body.dark .bg-purple-100 {
+        background-color: #4c1d95 !important;
+        color: #d8b4fe !important;
+      }
+      
+      body.dark .text-purple-800 {
+        color: #d8b4fe !important;
+      }
+      
+      body.dark .bg-gray-200 {
+        background-color: #475569 !important;
+      }
+      
+      body.dark .text-gray-600 {
+        color: #cbd5e1 !important;
+      }
+      
+      body.dark .shadow-lg {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5) !important;
+      }
+      
+      body.dark .shadow-md {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.7), 0 2px 4px -1px rgba(0, 0, 0, 0.5) !important;
+      }
+      
+      body.dark .input-field {
+        background-color: #334155 !important;
+        color: #f1f5f9 !important;
+        border-color: #475569 !important;
+      }
+      
+      body.dark .select-field {
+        background-color: #334155 !important;
+        color: #f1f5f9 !important;
+        border-color: #475569 !important;
+      }
+      
+      body.dark .textarea-field {
+        background-color: #334155 !important;
+        color: #f1f5f9 !important;
+        border-color: #475569 !important;
+      }
+      
+      body.dark .text-yellow-700 {
+        color: #fbbf24 !important;
+      }
+      
+      body.dark .bg-yellow-50 {
+        background-color: #451a03 !important;
+      }
+      
+      body.dark .border-yellow-400 {
+        border-color: #f59e0b !important;
+      }
+      
+      body.dark .text-yellow-400 {
+        color: #fbbf24 !important;
+      }
+      
+      body.dark .table-fixed th {
+        background-color: #334155 !important;
+        color: #f1f5f9 !important;
+        border-color: #475569 !important;
+      }
+      
+      body.dark .table-fixed td {
+        border-color: #475569 !important;
+      }
+      
+      /* Tambahan untuk elemen lainnya */
+      body.dark .text-slate-700 {
+        color: #e2e8f0 !important;
+      }
+      
+      body.dark .text-slate-400 {
+        color: #94a3b8 !important;
+      }
+      
+      body.dark .text-slate-300 {
+        color: #cbd5e1 !important;
+      }
+      
+      body.dark .bg-blue-600 {
+        background-color: #2563eb !important;
+      }
+      
+      body.dark .text-white {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .hover\:text-slate-800:hover {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .hover\:text-slate-700:hover {
+        color: #e2e8f0 !important;
+      }
+      
+      body.dark .text-red-600 {
+        color: #f87171 !important;
+      }
+      
+      body.dark .hover\:bg-red-50:hover {
+        background-color: #7f1d1d !important;
+      }
+      
+      body.dark .text-green-500 {
+        color: #34d399 !important;
+      }
+      
+      body.dark .text-yellow-500 {
+        color: #fbbf24 !important;
+      }
+      
+      body.dark .text-red-500 {
+        color: #f87171 !important;
+      }
+      
+      body.dark .bg-blue-50 {
+        background-color: #1e3a5f !important;
+      }
+      
+      body.dark .bg-red-50 {
+        background-color: #7f1d1d !important;
+      }
+      
+      body.dark .bg-green-50 {
+        background-color: #064e3b !important;
+      }
+      
+      body.dark .text-green-600 {
+        color: #34d399 !important;
+      }
+      
+      body.dark .bg-gradient-to-r {
+        background-image: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+      }
+      
+      /* Tambahan untuk statistik dan badge */
+      body.dark .bg-gray-50 {
+        background-color: #334155 !important;
+      }
+      
+      body.dark .bg-orange-50 {
+        background-color: #7c2d12 !important;
+      }
+      
+      body.dark .text-orange-600 {
+        color: #fb923c !important;
+      }
+      
+      body.dark .text-orange-800 {
+        color: #fed7aa !important;
+      }
+      
+      body.dark .bg-red-50 {
+        background-color: #7f1d1d !important;
+      }
+      
+      body.dark .text-red-600 {
+        color: #f87171 !important;
+      }
+      
+      body.dark .text-red-800 {
+        color: #fecaca !important;
+      }
+      
+      body.dark .bg-yellow-50 {
+        background-color: #713f12 !important;
+      }
+      
+      body.dark .text-yellow-600 {
+        color: #fbbf24 !important;
+      }
+      
+      body.dark .text-yellow-800 {
+        color: #fef3c7 !important;
+      }
+      
+      body.dark .bg-purple-50 {
+        background-color: #581c87 !important;
+      }
+      
+      body.dark .text-purple-600 {
+        color: #c084fc !important;
+      }
+      
+      body.dark .text-purple-800 {
+        color: #e9d5ff !important;
+      }
+      
+      body.dark .text-gray-900 {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .text-gray-500 {
+        color: #94a3b8 !important;
+      }
+      
+      body.dark .border-orange-200 {
+        border-color: #9a3412 !important;
+      }
+      
+      body.dark .border-red-200 {
+        border-color: #991b1b !important;
+      }
+      
+      body.dark .border-yellow-200 {
+        border-color: #a16207 !important;
+      }
+      
+      body.dark .border-purple-200 {
+        border-color: #6b21a8 !important;
+      }
+      
+      /* Badge colors */
+      body.dark .bg-green-100 {
+        background-color: #064e3b !important;
+      }
+      
+      body.dark .text-green-800 {
+        color: #6ee7b7 !important;
+      }
+      
+      body.dark .bg-blue-100 {
+        background-color: #1e3a5f !important;
+      }
+      
+      body.dark .text-blue-800 {
+        color: #93c5fd !important;
+      }
+      
+      body.dark .bg-indigo-100 {
+        background-color: #312e81 !important;
+      }
+      
+      body.dark .text-indigo-800 {
+        color: #a5b4fc !important;
+      }
+      
+      body.dark .text-indigo-600 {
+        color: #818cf8 !important;
+      }
+      
+      body.dark .hover\:text-indigo-900:hover {
+        color: #c7d2fe !important;
+      }
+      
+      body.dark .text-gray-400 {
+        color: #94a3b8 !important;
+      }
+      
+      body.dark .border-gray-300 {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .focus\:ring-indigo-200:focus {
+        --tw-ring-color: #6366f1 !important;
+      }
+      
+      body.dark .focus\:border-indigo-300:focus {
+        border-color: #818cf8 !important;
+      }
+      
+      body.dark .focus\:ring-blue-500:focus {
+        --tw-ring-color: #3b82f6 !important;
+      }
+      
+      body.dark .focus\:border-blue-500:focus {
+        border-color: #3b82f6 !important;
+      }
+      
+      body.dark .hover\:text-gray-700:hover {
+        color: #cbd5e1 !important;
+      }
+      
+      body.dark .hover\:border-gray-300:hover {
+        border-color: #64748b !important;
+      }
+      
+      body.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .divide-y > :not([hidden]) ~ :not([hidden]) {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .uppercase {
+        text-transform: uppercase;
+      }
+      
+      body.dark .tracking-wider {
+        letter-spacing: 0.05em;
+      }
+      
+      /* Tambahan untuk semua tabel dan elemen interaktif */
+      body.dark .bg-white {
+        background-color: #1e293b !important;
+      }
+      
+      body.dark .bg-gray-50 {
+        background-color: #334155 !important;
+      }
+      
+      body.dark .text-gray-500 {
+        color: #94a3b8 !important;
+      }
+      
+      body.dark .text-gray-900 {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .text-gray-700 {
+        color: #e2e8f0 !important;
+      }
+      
+      body.dark .text-gray-600 {
+        color: #cbd5e1 !important;
+      }
+      
+      body.dark .text-gray-400 {
+        color: #94a3b8 !important;
+      }
+      
+      body.dark .border-gray-200 {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .border-gray-300 {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .hover\:bg-gray-50:hover {
+        background-color: #334155 !important;
+      }
+      
+      body.dark .hover\:text-blue-900:hover {
+        color: #dbeafe !important;
+      }
+      
+      body.dark .hover\:text-indigo-900:hover {
+        color: #c7d2fe !important;
+      }
+      
+      body.dark .hover\:text-green-900:hover {
+        color: #bbf7d0 !important;
+      }
+      
+      body.dark .hover\:text-red-900:hover {
+        color: #fecaca !important;
+      }
+      
+      body.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .divide-y > :not([hidden]) ~ :not([hidden]) {
+        border-color: #475569 !important;
+      }
+      
+      /* Badge status colors yang lebih jelas */
+      body.dark .bg-green-100 {
+        background-color: #064e3b !important;
+      }
+      
+      body.dark .text-green-800 {
+        color: #6ee7b7 !important;
+      }
+      
+      body.dark .bg-red-100 {
+        background-color: #7f1d1d !important;
+      }
+      
+      body.dark .text-red-800 {
+        color: #fca5a5 !important;
+      }
+      
+      body.dark .bg-yellow-100 {
+        background-color: #713f12 !important;
+      }
+      
+      body.dark .text-yellow-800 {
+        color: #fde047 !important;
+      }
+      
+      body.dark .bg-blue-100 {
+        background-color: #1e3a8a !important;
+      }
+      
+      body.dark .text-blue-800 {
+        color: #93c5fd !important;
+      }
+      
+      body.dark .bg-purple-100 {
+        background-color: #581c87 !important;
+      }
+      
+      body.dark .text-purple-800 {
+        color: #d8b4fe !important;
+      }
+      
+      body.dark .bg-indigo-100 {
+        background-color: #312e81 !important;
+      }
+      
+      body.dark .text-indigo-800 {
+        color: #a5b4fc !important;
+      }
+      
+      body.dark .bg-gray-100 {
+        background-color: #374151 !important;
+      }
+      
+      body.dark .text-gray-800 {
+        color: #f3f4f6 !important;
+      }
+      
+      /* Link colors */
+      body.dark .text-blue-600 {
+        color: #60a5fa !important;
+      }
+      
+      body.dark .text-indigo-600 {
+        color: #818cf8 !important;
+      }
+      
+      body.dark .text-green-600 {
+        color: #34d399 !important;
+      }
+      
+      body.dark .text-red-600 {
+        color: #f87171 !important;
+      }
+      
+      /* Focus states */
+      body.dark .focus\:ring-blue-500:focus {
+        --tw-ring-color: #3b82f6 !important;
+      }
+      
+      body.dark .focus\:border-blue-500:focus {
+        border-color: #3b82f6 !important;
+      }
+      
+      body.dark .focus\:ring-indigo-500:focus {
+        --tw-ring-color: #6366f1 !important;
+      }
+      
+      body.dark .focus\:border-indigo-500:focus {
+        border-color: #6366f1 !important;
+      }
+      
+      body.dark .focus\:outline-none:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+      
+      /* Button hover states */
+      body.dark .hover\:bg-blue-700:hover {
+        background-color: #1d4ed8 !important;
+      }
+      
+      body.dark .bg-blue-600 {
+        background-color: #2563eb !important;
+      }
+      
+      /* Table specific styling */
+      body.dark .table-fixed {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .min-w-full {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .whitespace-nowrap {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .font-mono {
+        color: #e2e8f0 !important;
+      }
+      
+      body.dark .font-medium {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .font-semibold {
+        color: #f1f5f9 !important;
+      }
+      
+      body.dark .text-xs {
+        color: #cbd5e1 !important;
+      }
+      
+      body.dark .text-sm {
+        color: #e2e8f0 !important;
+      }
+      
+      body.dark .text-center {
+        color: #f1f5f9 !important;
+      }
+      
+      /* Form elements */
+      body.dark .border {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .rounded-lg {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .rounded-md {
+        border-color: #475569 !important;
+      }
+      
+      body.dark .rounded-full {
+        border-color: #475569 !important;
+      }
+      
+      /* ========================== */
 
       /* === INI PERBAIKANNYA: ATURAN HANYA UNTUK DESKTOP === */
       @media (min-width: 768px) {
@@ -131,7 +708,7 @@ function is_active($page_name) {
                     <span class="font-medium pl-3" data-sidebar-state="expanded">User</span>
                 </a>
                 <a href="review_pengajuan.php" title="Pengajuan Shift" class="nav-link flex items-center px-4 py-2.5 rounded-lg <?php echo is_active('review_pengajuan.php') ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 hover:bg-gray-200'; ?>">
-                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l4-4m0 0l4 4m-4-4v12m0 0l4 4m-4-4H3m10 0h8M3 12h8m-8 4h8m8-8l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
                     <span class="font-medium pl-3" data-sidebar-state="expanded">Pengajuan Shift</span>
                 </a>
             <?php else: ?>
@@ -148,7 +725,7 @@ function is_active($page_name) {
                     <span class="font-medium pl-3" data-sidebar-state="expanded">Jadwal Saya</span>
                 </a>
                 <a href="riwayat_pengajuan.php" title="Ganti Shift" class="nav-link flex items-center px-4 py-2.5 rounded-lg <?php echo is_active(['riwayat_pengajuan.php', 'ajukan_ganti_shift.php']) ? 'bg-blue-600 text-white shadow-md' : 'text-slate-600 hover:bg-gray-200'; ?>">
-                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h.01M12 7h.01M16 7h.01M9 11h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
                     <span class="font-medium pl-3" data-sidebar-state="expanded">Ganti Shift</span>
                 </a>
             <?php endif; ?>
@@ -176,6 +753,15 @@ function is_active($page_name) {
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
                 </div>
                 <span class="pl-3" data-sidebar-state="expanded">Lipat Sidebar</span>
+            </button>
+            <button id="theme-toggle" title="Toggle Mode Gelap" class="nav-link flex items-center w-full px-4 py-2.5 rounded-lg text-slate-600 hover:bg-gray-200">
+                <div class="icon-wrapper w-10 h-10 flex items-center justify-center flex-shrink-0">
+                    <!-- Sun icon for light mode -->
+                    <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <!-- Moon icon for dark mode -->
+                    <svg id="theme-icon-dark" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </div>
+                <span class="pl-3" data-sidebar-state="expanded">Mode Gelap</span>
             </button>
         </div>
     </aside>

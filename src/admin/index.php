@@ -36,7 +36,7 @@ $result_absensi = $stmt_absensi->get_result();
             <form action="proses_interval.php" method="POST" class="mt-4 border-t border-gray-200 pt-4">
                 <label for="interval-input" class="block text-sm font-medium text-gray-700 mb-1">Ubah Interval (menit)</label>
                 <div class="flex items-center space-x-2">
-                    <input type="number" name="interval" id="interval-input" min="1" value="<?php echo $current_interval; ?>" class="bg-gray-50 border border-gray-300 text-slate-900 rounded-md w-full py-2 px-3 text-sm" required>
+                    <input type="number" name="interval" id="interval-input" min="1" value="<?php echo $current_interval; ?>" class="bg-gray-50 border border-gray-300 text-slate-900 rounded-md w-full py-2 px-3 text-sm input-field" required>
                     <button type="submit" class="bg-slate-600 hover:bg-slate-700 text-white font-semibold py-2 px-4 rounded-md text-sm transition-colors">Simpan</button>
                 </div>
             </form>

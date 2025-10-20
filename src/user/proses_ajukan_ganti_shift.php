@@ -37,6 +37,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // Validasi hari libur (Sabtu dan Minggu)
+    $start_day = date('w', strtotime($tanggal_mulai)); // 0 = Minggu, 6 = Sabtu
+    $end_day = date('w', strtotime($tanggal_selesai));
+    
+    // Cek apakah ada hari libur dalam rentang tanggal
+    $current_date = new DateTime($tanggal_mulai);
+    $end_date = new DateTime($tanggal_selesai);
+    $has_weekend = false;
+    
+    while ($current_date <= $end_date) {
+        $day_of_week = $current_date->format('w'); // 0 = Minggu, 6 = Sabtu
+        if ($day_of_week == 0 || $day_of_week == 6) {
+            $has_weekend = true;
+            break;
+        }
+        $current_date->modify('+1 day');
+    }
+    
+    if ($has_weekend) {
+        $_SESSION['toast'] = ['message' => 'Tidak dapat mengajukan ganti shift pada hari libur (Sabtu/Minggu).', 'type' => 'error'];
+        header('Location: ajukan_ganti_shift.php');
+        exit;
+    }
+
     // Simpan ke database
     $stmt = $conn->prepare("INSERT INTO pengajuan_ganti_shift (user_id, tanggal_mulai, tanggal_selesai, shift_id_lama, shift_id_baru, alasan) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("issiis", $user_id, $tanggal_mulai, $tanggal_selesai, $shift_id_lama, $shift_id_baru, $alasan);

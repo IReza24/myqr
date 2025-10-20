@@ -53,7 +53,7 @@ $result_users = $stmt_users->get_result();
         <div class="mb-6">
             <form id="search-form" method="GET" action="users.php">
                 <div class="relative">
-                    <input type="text" id="search-input" name="search" placeholder="Ketik untuk mencari nama atau username..." value="<?php echo htmlspecialchars($search_query); ?>" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="search-input" name="search" placeholder="Ketik untuk mencari nama atau username..." value="<?php echo htmlspecialchars($search_query); ?>" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 input-field">
                     <div class="absolute top-0 left-0 inline-flex items-center justify-center h-full w-10 text-gray-400">
                         <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
@@ -81,7 +81,7 @@ $result_users = $stmt_users->get_result();
                                 <td class="py-2 px-4 align-middle whitespace-nowrap"><?php echo htmlspecialchars($user['nama_lengkap']); ?></td>
                                 <td class="py-2 px-4 align-middle whitespace-nowrap"><?php echo htmlspecialchars($user['username']); ?></td>
                                 <td class="py-2 px-4 align-middle whitespace-nowrap">
-                                    <select name="shift_id" class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <select name="shift_id" class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 select-field">
                                         <option value="">- Tanpa Shift -</option>
                                         <?php foreach ($shifts as $shift): ?>
                                             <option value="<?php echo $shift['id']; ?>" <?php echo ($user['shift_id'] == $shift['id']) ? 'selected' : ''; ?>>
